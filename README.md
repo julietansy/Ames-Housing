@@ -1,4 +1,4 @@
-# **Ames Housing**
+# **🏘 Ames Housing Sale Price**
 
 ## Introduction
 
@@ -679,19 +679,55 @@ The box plot analysis highlights intriguing outliers within the 1 to 3 full bath
         plt.show()
 
 
+## Regression Analysis
+### Does age of houses affects the sales price?
+
+Understanding the factors influencing property sale prices is pivotal in the real estate market. One essential aspect often considered is the age of the property at the time of sale. Through regression analysis, the relationship between the "Sold_House_Age" variable and the "SalePrice" of properties was explored to ascertain its significance and impact.
+
+The results of the OLS regression analysis show that the "Sold_House_Age" variable has a significant effect on the "SalePrice" of the houses.
+
+The coefficient for "Sold_House_Age" is -1473.9920, which indicates that, on average, for every unit increase in "Sold_House_Age", the "SalePrice" decreases by approximately $1,474. This negative coefficient suggests that as the age of the property at the time of sale increases, the sale price tends to decrease.
+
+The p-value associated with the coefficient is very small (p < 0.001), indicating that the relationship between "Sold_House_Age" and "SalePrice" is statistically significant. This suggests that the observed relationship is unlikely to have occurred by chance.
+
+The R-squared value of 0.312 indicates that the model explains about 31.2% of the variability in the "SalePrice" based on the "Sold_House_Age" variable. This means that the "Sold_House_Age" variable alone is able to explain 31.2% of the variation in "SalePrice".
+
+The Durbin-Watson statistic of 1.009 is close to 2, indicating no significant autocorrelation in the residuals. The Jarque-Bera test has a low p-value (p < 0.001), suggesting that the residuals do not follow a normal distribution.
+
+In summary, the regression analysis suggests that the age of the property at the time of sale, represented by the "Sold_House_Age" variable, has a statistically significant effect on the sale price. However, it's important to note that the model explains only a moderate amount of the variability in "SalePrice", and there may be other factors not considered in the model that also influence the sale price.
+
+        # Create a linear regression model
+        X = data_final["Sold_House_Age"]
+        y = data_final["SalePrice"]
+        X = sm.add_constant(X)  # Add a constant term to the predictor variable
+        model = sm.OLS(y, X)
+        
+        # Fit the model and obtain the results
+        results = model.fit()
+        
+        # Print the summary of the regression analysis
+        print(results.summary())
+
+![image](https://github.com/julietansy/Ames-Housing/assets/151416878/d1305659-3c20-4600-ac2d-549381a07e5c)
+
+
+
 
 ## Conclusion
 **Overall Quality:** The quality of a house strongly influences its sales price. Properties with higher quality ratings tend to command higher prices. However, exceptional houses within the same quality category might have significantly higher values due to other influential features.
 
-**Sold House Age:** Younger houses generally have higher sale prices compared to older ones. While the age of the house plays a role, other influential factors contribute to the variation in prices across different age groups.
+**Sold House Age:** Another crucial determinant observed in our analysis is the age of the property at the time of sale. Younger houses generally have higher sale prices compared to older ones. Our regression analysis underscored the significant impact of the "Sold_House_Age" variable on sale prices. For each incremental unit increase in the property's age at sale, the sale price decreased by approximately $1,474 on average. This finding solidifies the notion that as the age of the property increases, its sale price tends to decrease, substantiating the influence of age on market valuations. It's important to note that while the age of the house plays a role, other influential factors contribute to the variation in prices across different age groups.
 
 **Living Area:**
 
-**Total Living Area: **Larger living spaces positively impact property values, with a consistent rise in prices up to a certain threshold, beyond which there's a decline in the mean sales price.
-First-Floor Living Area, Ground Living Area, and Total Basement Area: Similar to Total Living Area, larger areas in these specific sections positively influence property values, with larger areas generally commanding higher prices. However, variations exist within certain ranges, suggesting nuanced effects on sales prices based on specific area sizes.
-Garage Area: The size of the garage area also correlates positively with sales price. Larger garage areas tend to be associated with higher property values. However, there's a scarcity of data for extremely large garage spaces, indicating their relative rarity in the dataset.
+**Total Living Area:** Larger living spaces positively impact property values, with a consistent rise in prices up to a certain threshold, beyond which there's a decline in the mean sales price.
+
+**First-Floor Living Area, Ground Living Area, and Total Basement Area:** Similar to Total Living Area, larger areas in these specific sections positively influence property values, with larger areas generally commanding higher prices. However, variations exist within certain ranges, suggesting nuanced effects on sales prices based on specific area sizes.
+
+**Garage Area:** The size of the garage area also correlates positively with sales price. Larger garage areas tend to be associated with higher property values. However, there's a scarcity of data for extremely large garage spaces, indicating their relative rarity in the dataset.
 
 **Full Bath Count:** Properties with more full baths generally command higher prices. However, the premium associated with 4 baths stands out, suggesting a distinct increase in value for homes with this specific bathroom count.
+
 
 
 ## Recommendations
